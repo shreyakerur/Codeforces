@@ -25,12 +25,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Codeforces AutoPush
+      - name: Check environment configuration
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           CF_API_SECRET: ${{ secrets.CF_API_SECRET }}
           CF_HANDLE: ${{ secrets.CF_HANDLE }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_REPO: ${{ secrets.TARGET_REPO }}
-          GITHUB_TARGET_DIR: ${{ secrets.TARGET_DIR }}
-        run: python cf_autopush.py
+        run: |
+          test -n "$CF_API_KEY" && echo "CF_API_KEY is set" || echo "CF_API_KEY is missing"
+          test -n "$CF_API_SECRET" && echo "CF_API_SECRET is set" || echo "CF_API_SECRET is missing"
+          test -n "$CF_HANDLE" && echo "CF_HANDLE is set" || echo "CF_HANDLE is missing"
+          test -n "$GITHUB_TOKEN" && echo "GITHUB_TOKEN is set" || echo "GITHUB_TOKEN is missing"
+          test -n "$GITHUB_REPO" && echo "GITHUB_REPO is set" || echo "GITHUB_REPO is missing"
