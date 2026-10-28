@@ -32,9 +32,4 @@ jobs:
           CF_HANDLE: ${{ secrets.CF_HANDLE }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_REPO: ${{ secrets.TARGET_REPO }}
-        run: |
-          test -n "$CF_API_KEY" && echo "CF_API_KEY is set" || echo "CF_API_KEY is missing"
-          test -n "$CF_API_SECRET" && echo "CF_API_SECRET is set" || echo "CF_API_SECRET is missing"
-          test -n "$CF_HANDLE" && echo "CF_HANDLE is set" || echo "CF_HANDLE is missing"
-          test -n "$GITHUB_TOKEN" && echo "GITHUB_TOKEN is set" || echo "GITHUB_TOKEN is missing"
-          test -n "$GITHUB_REPO" && echo "GITHUB_REPO is set" || echo "GITHUB_REPO is missing"
+        run: python cf_autopush.py
